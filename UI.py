@@ -211,7 +211,7 @@ class VideoPlayback(QWidget):
         # self.setLayout(self.layout)
 
         self.mediaPlayer.setVideoOutput(self.videoWidget)
-        file = "/home/pi/Videos/big_buck_bunny_720p_stereo.avi"
+        file = "/home/tertese/Public/smat_projects/pyqt5_projects/photobooth/demo.mp4"
 
         self.playlist = QMediaPlaylist()
 
