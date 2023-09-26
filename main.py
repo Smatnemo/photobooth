@@ -1,17 +1,26 @@
 import sys
-import libcamera
+try:
+    import libcamera
+    import_libcamera=True
+except ImportError:
+    import_libcamera=False
+    pass
 import datetime
 import time
-import cv2
+
 from PyQt5.QtWidgets import QMainWindow, QApplication, QBoxLayout, QPushButton, QWidget
 from PyQt5 import QtGui, QtCore, QtWidgets
 from UI import *
 from login import LoginPopup
 
 # For camera
-from picamera2 import Picamera2, MappedArray
-from picamera2.previews.qt import QGlPicamera2
-
+try:
+    from picamera2 import Picamera2, MappedArray
+    from picamera2.previews.qt import QGlPicamera2
+    imported_picam = True
+except ImportError:
+    imported_picam = False
+    pass
 # Payment method
 # import nayax.adapter as nayax
 
@@ -25,7 +34,11 @@ from style import style
 # constants
 colour = (0, 255, 0)
 origin = (0, 30)
-font = cv2.FONT_HERSHEY_SIMPLEX
+try:
+    import cv2
+    font = cv2.FONT_HERSHEY_SIMPLEX
+except ImportError:
+    pass
 scale = 1
 thickness = 2
 
@@ -56,8 +69,8 @@ class Window(QMainWindow):
 
         # date for file name
         self.date = datetime.datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
-
-        self.initCamera()
+        if imported_picam:
+            self.initCamera()
         # Create menu bar and add action
         self.menuBar = self.menuBar()
         self.fileMenu = self.menuBar.addMenu("&File")
